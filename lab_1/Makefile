@@ -18,8 +18,8 @@ FILTERS += --filter pandoc-crossref
 ###
 PDF_ENGINE += --pdf-engine=lualatex --pdf-engine-opt=--shell-escape
 OPTIONS += --number-sections
-BIB_OPTIONS = --citeproc
-PDF_BIB_OPTIONS = --citeproc
+BIB_OPTIONS = --filter pandoc-citeproc
+PDF_BIB_OPTIONS = --filter pandoc-citeproc
 # PDF_BIB_OPTIONS = --biblatex
 
 %.docx: %.md
@@ -30,8 +30,7 @@ PDF_BIB_OPTIONS = --citeproc
 
 all: $(FILES)
 
-
 clean:
 	-rm $(FILES) *~
 
-cleanall: clean
+cleanall: clean 

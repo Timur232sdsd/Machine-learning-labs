@@ -21,6 +21,8 @@ class Node:
         self.true_branch = true_branch  # поддерево, удовлетворяющее условию в узле
         self.false_branch = false_branch  # поддерево, не удовлетворяющее условию в узле
 
+from sklearn.metrics import mean_squared_error, r2_score
+
 def predict(data, tree):
 
     classes = []
@@ -150,10 +152,6 @@ tree = build_tree(train_data, train_labels)
 # Прогнозирование
 predictions = predict(test_data, tree)
 print(predictions)
-
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.metrics import mean_squared_error, r2_score
 
 # Создадим цветовые карты для регрессии
 cmap = plt.cm.viridis

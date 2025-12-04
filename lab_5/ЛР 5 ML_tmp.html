@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ЛР 5 ML.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="front-matter">Front matter</h2>
+<p>title: &quot;Отчёт по лабораторной работе №5&quot;
+author: &quot;Тимур Каримов&quot;</p>
+<h2 id="generic-options">Generic options</h2>
+<p>lang: ru-RU
+toc-title: &quot;Содержание&quot;</p>
+<h2 id="bibliography">Bibliography</h2>
+<p>bibliography: bib/cite.bib
+csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl</p>
+<h2 id="pdf-output-format">Pdf output format</h2>
+<p>toc: true
+toc-depth: 2
+lof: true
+lot: true
+fontsize: 12pt
+linestretch: 1.5
+papersize: a4
+documentclass: scrreprt</p>
+<h2 id="polyglossia">Polyglossia</h2>
+<p>polyglossia-lang:
+name: russian
+options:
+- spelling=modern
+- babelshorthands=true
+polyglossia-otherlangs:
+name: english</p>
+<h2 id="babel">Babel</h2>
+<p>babel-lang: russian
+babel-otherlangs: english</p>
+<h2 id="fonts">Fonts</h2>
+<p>mainfont: IBM Plex Serif
+romanfont: IBM Plex Serif
+sansfont: IBM Plex Sans
+monofont: IBM Plex Mono
+mathfont: STIX Two Math
+mainfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+romanfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+sansfontoptions: Ligatures=Common,Ligatures=TeX,Scale=MatchLowercase,Scale=0.94
+monofontoptions: Scale=MatchLowercase,Scale=0.94,FakeStretch=0.9</p>
+<h2 id="biblatex">Biblatex</h2>
+<p>biblatex: true
+biblio-style: &quot;gost-numeric&quot;
+biblatexoptions:</p>
+<ul>
+<li>parentracker=true</li>
+<li>backend=biber</li>
+<li>hyperref=auto</li>
+<li>language=auto</li>
+<li>autolang=other*</li>
+<li>citestyle=gost-numeric</li>
+</ul>
+<h2 id="pandoc-crossref">Pandoc-crossref</h2>
+<p>figureTitle: &quot;Рис.&quot;
+tableTitle: &quot;Таблица&quot;
+listingTitle: &quot;Листинг&quot;
+lofTitle: &quot;Список иллюстраций&quot;
+lotTitle: &quot;Список таблиц&quot;
+lolTitle: &quot;Листинги&quot;</p>
+<h2 id="misc">Misc</h2>
+<p>indent: true
+header-includes:</p>
+<ul>
+<li>\usepackage{indentfirst}</li>
+<li>\usepackage{float}</li>
+<li>\floatplacement{figure}{H}</li>
+</ul>
+<hr>
+<h2 id="%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B"><strong>Выполнение работы</strong></h2>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-1">**Задание 1:</h3>
+<p>Сформировать с помощью sklearn.make_classification датасет из 1000 объектов с двумя признаками, обучить случайный лес из 1, 3, 10 и 50 деревьев и визуализировать их разделяющие гиперплоскости на графиках (по подобию визуализации деревьев из предыдущей лабораторной работы №4, необходимо только заменить вызов функции predict на tree_vote).</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение:</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> make_classification
+<span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tree_vote</span><span class="hljs-params">(forest, X)</span>:</span>
+    <span class="hljs-string">"""
+    Функция для получения предсказаний каждого дерева в лесу
+    """</span>
+    predictions = []
+    <span class="hljs-keyword">for</span> tree <span class="hljs-keyword">in</span> forest.estimators_:
+        predictions.append(tree.predict(X))
+    <span class="hljs-keyword">return</span> np.array(predictions).T
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_decision_boundary</span><span class="hljs-params">(forest, X, y, title, ax)</span>:</span>
+    <span class="hljs-string">"""
+    Функция для визуализации разделяющей гиперплоскости
+    """</span>
+    <span class="hljs-comment"># Создаем сетку для построения графика</span>
+    x_min, x_max = X[:, <span class="hljs-number">0</span>].min() - <span class="hljs-number">1</span>, X[:, <span class="hljs-number">0</span>].max() + <span class="hljs-number">1</span>
+    y_min, y_max = X[:, <span class="hljs-number">1</span>].min() - <span class="hljs-number">1</span>, X[:, <span class="hljs-number">1</span>].max() + <span class="hljs-number">1</span>
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, <span class="hljs-number">0.02</span>),
+                         np.arange(y_min, y_max, <span class="hljs-number">0.02</span>))
+    
+    <span class="hljs-comment"># Получаем предсказания для каждого дерева</span>
+    grid_points = np.c_[xx.ravel(), yy.ravel()]
+    tree_predictions = tree_vote(forest, grid_points)
+    
+    <span class="hljs-comment"># Усредняем предсказания всех деревьев</span>
+    avg_predictions = np.mean(tree_predictions, axis=<span class="hljs-number">1</span>)
+    
+    <span class="hljs-comment"># Создаем бинарное предсказание (0 или 1)</span>
+    Z = (avg_predictions &gt; <span class="hljs-number">0.5</span>).astype(int)
+    Z = Z.reshape(xx.shape)
+    
+    <span class="hljs-comment"># Рисуем контур и точки</span>
+    ax.contourf(xx, yy, Z, alpha=<span class="hljs-number">0.3</span>, cmap=plt.cm.RdYlBu)
+    scatter = ax.scatter(X[:, <span class="hljs-number">0</span>], X[:, <span class="hljs-number">1</span>], c=y, cmap=plt.cm.RdYlBu, 
+                        edgecolors=<span class="hljs-string">'k'</span>, s=<span class="hljs-number">20</span>)
+    
+    ax.set_xlim(xx.min(), xx.max())
+    ax.set_ylim(yy.min(), yy.max())
+    ax.set_title(title)
+    ax.set_xlabel(<span class="hljs-string">'Признак 1'</span>)
+    ax.set_ylabel(<span class="hljs-string">'Признак 2'</span>)
+
+<span class="hljs-comment"># Создаем датасет</span>
+X, y = make_classification(n_samples=<span class="hljs-number">1000</span>, n_features=<span class="hljs-number">2</span>, n_redundant=<span class="hljs-number">0</span>, 
+                          n_informative=<span class="hljs-number">2</span>, n_clusters_per_class=<span class="hljs-number">1</span>,
+                          random_state=<span class="hljs-number">42</span>)
+
+<span class="hljs-comment"># Список количества деревьев для экспериментов</span>
+n_trees_list = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>]
+
+<span class="hljs-comment"># Создаем subplot для визуализации</span>
+fig, axes = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">12</span>))
+axes = axes.ravel()
+
+<span class="hljs-comment"># Обучаем и визуализируем для каждого количества деревьев</span>
+<span class="hljs-keyword">for</span> i, n_trees <span class="hljs-keyword">in</span> enumerate(n_trees_list):
+    <span class="hljs-comment"># Создаем и обучаем случайный лес</span>
+    rf = RandomForestClassifier(n_estimators=n_trees, random_state=<span class="hljs-number">42</span>)
+    rf.fit(X, y)
+    
+    <span class="hljs-comment"># Визуализируем разделяющую гиперплоскость</span>
+    plot_decision_boundary(rf, X, y, 
+                          <span class="hljs-string">f'Случайный лес (<span class="hljs-subst">{n_trees}</span> дерево(ьев))'</span>, 
+                          axes[i])
+    
+    <span class="hljs-comment"># Добавляем информацию о точности</span>
+    accuracy = rf.score(X, y)
+    axes[i].text(<span class="hljs-number">0.05</span>, <span class="hljs-number">0.95</span>, <span class="hljs-string">f'Точность: <span class="hljs-subst">{accuracy:<span class="hljs-number">.3</span>f}</span>'</span>, 
+                transform=axes[i].transAxes, fontsize=<span class="hljs-number">12</span>,
+                bbox=dict(boxstyle=<span class="hljs-string">"round"</span>, facecolor=<span class="hljs-string">'white'</span>, alpha=<span class="hljs-number">0.8</span>))
+
+plt.tight_layout()
+plt.show()
+
+</div></code></pre>
+<p>Этот код выполняет следующие задачи:</p>
+<ol>
+<li>
+<p><strong>Создает датасет</strong> с помощью <code>make_classification</code>:</p>
+<ul>
+<li>1000 объектов</li>
+<li>2 признака</li>
+<li>2 класса</li>
+</ul>
+</li>
+<li>
+<p><strong>Функция <code>tree_vote</code></strong>:</p>
+<ul>
+<li>Получает предсказания от каждого дерева в лесе</li>
+<li>Возвращает матрицу предсказаний</li>
+</ul>
+</li>
+<li>
+<p><strong>Функция <code>plot_decision_boundary</code></strong>:</p>
+<ul>
+<li>Создает сетку точек для визуализации</li>
+<li>Получает предсказания для каждой точки сетки от всех деревьев</li>
+<li>Усредняет предсказания и создает бинарную классификацию</li>
+<li>Визуализирует разделяющую границу и исходные точки</li>
+</ul>
+</li>
+<li>
+<p><strong>Основной эксперимент</strong>:</p>
+<ul>
+<li>Обучает случайные леса с 1, 3, 10 и 50 деревьями</li>
+<li>Визуализирует разделяющие гиперплоскости для каждого случая</li>
+<li>Показывает точность классификации на обучающих данных
+График:</li>
+</ul>
+</li>
+</ol>
+<p>![[Pasted image 20251123193355.png]]</p>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-2">**Задание 2:</h3>
+<p>Сделать выводы о получаемой сложности гиперплоскости и недообучени или переобучении случайного леса в зависимости от количества деревьев в нем.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5"><strong>Решение:</strong></h3>
+<p>Характеристика при 1 дереве:</p>
+<ul>
+<li>Гиперплоскость состоит из прямых линий, параллельных осям</li>
+<li>Резкие, угловатые переходы между областями</li>
+<li>Минимальная адаптация к сложности данных</li>
+<li>Явно видна структура решающего дерева</li>
+</ul>
+<p>Характеристика при 3 деревьях:</p>
+<ul>
+<li>Появляются более плавные переходы</li>
+<li>Граница начинает лучше следовать распределению данных</li>
+<li>Сохраняются элементы &quot;ступенчатости&quot;</li>
+<li>Начинает проявляться ансамблированный эффект</li>
+</ul>
+<p>Характеристика при 10 деревьях:</p>
+<ul>
+<li>Гладкая, хорошо адаптированная граница</li>
+<li>Естественное следование контурам кластеров</li>
+<li>Баланс между сложностью и обобщающей способностью</li>
+<li>Исчезают резкие артефакты отдельных деревьев</li>
+</ul>
+<p>Характеристика при 50 деревьях:</p>
+<ul>
+<li>Максимально гладкая гиперплоскость</li>
+<li>Стабильная граница с минимальными колебаниями</li>
+<li>Полное использование ансамблированного преимущества</li>
+<li>Дальнейшее увеличение деревьев дает diminishing returns</li>
+</ul>
+<p>Можно заметить, что при 1-3 дереве модель слишком простая и не может уловить сложных данных. Так же высокий bias, низкий variance. При 10 деревьях наблюдаем баланс между bias и variance. Однако при 50 деревьях стабильные предсказания и минимальный риск переобучения благодаря бутстрапу</p>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-3">**Задание 3:</h3>
+<p>Заменить в реализованном алгоритме проверку с помощью отложенной выборки на Out-of-Bag.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5"><strong>Решение:</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> make_classification
+
+<span class="hljs-keyword">from</span> sklearn.ensemble <span class="hljs-keyword">import</span> RandomForestClassifier
+
+<span class="hljs-keyword">from</span> collections <span class="hljs-keyword">import</span> defaultdict
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">tree_vote</span><span class="hljs-params">(forest, data)</span>:</span>
+
+    predictions = []
+
+    <span class="hljs-keyword">for</span> tree <span class="hljs-keyword">in</span> forest:
+
+        predictions.append(tree.predict(data))
+
+    predictions_per_object = list(zip(*predictions))
+
+    voted_predictions = []
+
+    <span class="hljs-keyword">for</span> obj <span class="hljs-keyword">in</span> predictions_per_object:
+
+        voted_predictions.append(max(set(obj), key=obj.count))
+
+    <span class="hljs-keyword">return</span> voted_predictions
+
+  
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">RandomForestWithOOB</span>:</span>
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, n_estimators=<span class="hljs-number">100</span>, random_state=None)</span>:</span>
+
+        self.n_estimators = n_estimators
+
+        self.random_state = random_state
+
+        self.estimators_ = []
+
+        self.estimators_samples_ = []
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fit</span><span class="hljs-params">(self, X, y)</span>:</span>
+
+        np.random.seed(self.random_state)
+
+        n_samples = X.shape[<span class="hljs-number">0</span>]
+
+        self.estimators_ = []
+
+        self.estimators_samples_ = []
+
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(self.n_estimators):
+
+            bootstrap_indices = np.random.choice(n_samples, n_samples, replace=<span class="hljs-literal">True</span>)
+
+            <span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeClassifier
+
+            tree = DecisionTreeClassifier(random_state=self.random_state + i <span class="hljs-keyword">if</span> self.random_state <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span>)
+
+            tree.fit(X[bootstrap_indices], y[bootstrap_indices])
+
+            self.estimators_.append(tree)
+
+            self.estimators_samples_.append(bootstrap_indices)
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">oob_score</span><span class="hljs-params">(self, X, y)</span>:</span>
+
+        n_samples = X.shape[<span class="hljs-number">0</span>]
+
+        oob_predictions = defaultdict(list)
+
+        <span class="hljs-keyword">for</span> i, tree <span class="hljs-keyword">in</span> enumerate(self.estimators_):
+
+            bootstrap_indices = self.estimators_samples_[i]
+
+            oob_indices = np.setdiff1d(np.arange(n_samples), bootstrap_indices)
+
+            <span class="hljs-keyword">if</span> len(oob_indices) &gt; <span class="hljs-number">0</span>:
+
+                predictions = tree.predict(X[oob_indices])
+
+                <span class="hljs-keyword">for</span> idx, pred <span class="hljs-keyword">in</span> zip(oob_indices, predictions):
+
+                    oob_predictions[idx].append(pred)
+
+        correct_predictions = <span class="hljs-number">0</span>
+
+        valid_samples = <span class="hljs-number">0</span>
+
+        <span class="hljs-keyword">for</span> idx <span class="hljs-keyword">in</span> range(n_samples):
+
+            <span class="hljs-keyword">if</span> idx <span class="hljs-keyword">in</span> oob_predictions <span class="hljs-keyword">and</span> len(oob_predictions[idx]) &gt; <span class="hljs-number">0</span>:
+
+                votes = oob_predictions[idx]
+
+                final_pred = max(set(votes), key=votes.count)
+
+                <span class="hljs-keyword">if</span> final_pred == y[idx]:
+
+                    correct_predictions += <span class="hljs-number">1</span>
+
+                valid_samples += <span class="hljs-number">1</span>
+
+        <span class="hljs-keyword">return</span> correct_predictions / valid_samples <span class="hljs-keyword">if</span> valid_samples &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0.0</span>
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">plot_decision_boundary</span><span class="hljs-params">(forest, X, y, title, ax, oob_score=None)</span>:</span>
+
+    x_min, x_max = X[:, <span class="hljs-number">0</span>].min() - <span class="hljs-number">1</span>, X[:, <span class="hljs-number">0</span>].max() + <span class="hljs-number">1</span>
+
+    y_min, y_max = X[:, <span class="hljs-number">1</span>].min() - <span class="hljs-number">1</span>, X[:, <span class="hljs-number">1</span>].max() + <span class="hljs-number">1</span>
+
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, <span class="hljs-number">0.02</span>),
+
+                         np.arange(y_min, y_max, <span class="hljs-number">0.02</span>))
+
+    grid_points = np.c_[xx.ravel(), yy.ravel()]
+
+    Z = tree_vote(forest, grid_points)
+
+    Z = np.array(Z).reshape(xx.shape)
+
+    ax.contourf(xx, yy, Z, alpha=<span class="hljs-number">0.3</span>, cmap=plt.cm.RdYlBu)
+
+    ax.scatter(X[:, <span class="hljs-number">0</span>], X[:, <span class="hljs-number">1</span>], c=y, cmap=plt.cm.RdYlBu, edgecolors=<span class="hljs-string">'k'</span>, s=<span class="hljs-number">20</span>)
+
+    ax.set_title(title)
+
+    ax.set_xlabel(<span class="hljs-string">'Признак 1'</span>)
+
+    ax.set_ylabel(<span class="hljs-string">'Признак 2'</span>)
+
+    <span class="hljs-keyword">if</span> oob_score <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+
+        ax.text(<span class="hljs-number">0.05</span>, <span class="hljs-number">0.95</span>, <span class="hljs-string">f'OOB точность: <span class="hljs-subst">{oob_score:<span class="hljs-number">.3</span>f}</span>'</span>,
+
+                transform=ax.transAxes, bbox=dict(boxstyle=<span class="hljs-string">"round"</span>, facecolor=<span class="hljs-string">'white'</span>))
+
+  
+
+<span class="hljs-comment"># 1. Создаем датасет и визуализируем</span>
+
+X, y = make_classification(n_samples=<span class="hljs-number">1000</span>, n_features=<span class="hljs-number">2</span>, n_redundant=<span class="hljs-number">0</span>,
+
+                          n_informative=<span class="hljs-number">2</span>, random_state=<span class="hljs-number">42</span>)
+
+  
+
+fig, axes = plt.subplots(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">12</span>))
+
+axes = axes.ravel()
+
+  
+
+<span class="hljs-keyword">for</span> i, n_trees <span class="hljs-keyword">in</span> enumerate([<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">10</span>, <span class="hljs-number">50</span>]):
+
+    rf_oob = RandomForestWithOOB(n_estimators=n_trees, random_state=<span class="hljs-number">42</span>)
+
+    rf_oob.fit(X, y)
+
+    oob_accuracy = rf_oob.oob_score(X, y)
+
+    plot_decision_boundary(rf_oob.estimators_, X, y,
+
+                          <span class="hljs-string">f'Случайный лес (<span class="hljs-subst">{n_trees}</span> дерево(ьев))'</span>,
+
+                          axes[i], oob_accuracy)
+
+  
+
+plt.tight_layout()
+
+plt.show()
+</div></code></pre>
+<p>Мы заменили стандартную проверку с использованием отложенной выборки (hold-out validation) на оценку с помощью Out-of-Bag (OOB) выборки.<br>
+Вместо того чтобы разделять данные на обучающую и тестовую выборки, мы используем внутренний механизм бутстрэппинга в случайном лесе.</p>
+<ol>
+<li>
+<p>Каждое дерево в случайном лесе обучается на бутстрэп-выборке (случайной подвыборке исходных данных с возвращением).</p>
+</li>
+<li>
+<p>Поскольку выборка происходит с возвращением, в среднем около 37% объектов не попадают в обучающую выборку для каждого дерева.</p>
+</li>
+<li>
+<p>Эти объекты, не участвовавшие в обучении данного дерева, называются Out-of-Bag (OOB) для этого дерева.</p>
+</li>
+<li>
+<p>Для каждого объекта мы можем собрать предсказания от всех деревьев, для которых этот объект был OOB.</p>
+</li>
+<li>
+<p>Затем мы усредняем (для регрессии) или проводим голосование (для классификации) по этим предсказаниям, чтобы получить OOB-предсказание для объекта.</p>
+</li>
+<li>
+<p>OOB-оценка — это точность (для классификации) или R^2 (для регрессии) по всем объектам</p>
+</li>
+</ol>
+<p>График:</p>
+<p>![[Pasted image 20251123193624.png]]</p>
+<div class="{#refs}">
+</div>
+
+</body>
+</html>

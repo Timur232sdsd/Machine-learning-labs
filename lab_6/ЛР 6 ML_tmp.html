@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ЛР 6 ML.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%D1%80%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%B9-%D1%83%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82-%D0%B4%D1%80%D1%83%D0%B6%D0%B1%D1%8B-%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BE%D0%B2">РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ</h1>
+<p><strong>Факультет физико-математических и естественных наук</strong></p>
+<p><strong>Кафедра теории вероятностей и кибербезопасности</strong></p>
+<hr>
+<h2 id="%D0%BE%D1%82%D1%87%D0%B5%D1%82-%D0%BF%D0%BE-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5-%E2%84%96">**ОТЧЕТ ПО ЛАБОРАТОРНОЙ РАБОТЕ № **</h2>
+<p><strong>Дисциплина:</strong> Компьютерные науки и технологии программирования</p>
+<p><strong>Студент:</strong> Каримов Тимур Ринатович</p>
+<p><strong>Группа:</strong> 1132246817</p>
+<p><strong>Преподаватель:</strong> Бегишев В.О.</p>
+<p><strong>МОСКВА 2024 г.</strong></p>
+<hr>
+<h2 id="%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B"><strong>Цель работы:</strong></h2>
+<p>Изучить алгоритм работы градиентного бустинга.</p>
+<hr>
+<h2 id="%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B"><strong>Выполнение работы</strong></h2>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-1">**Задание 1:</h3>
+<p>Для реализованной модели градиентного бустинга построить графики зависимости ошибки от количества деревьев в ансамбле и от максимальной глубины деревьев. Сделать выводы о зависимости ошибки от этих параметров.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение:</h3>
+<h3 id="%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C-%D0%BE%D1%82-%D0%BA%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B0-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8C%D0%B5%D0%B2"><strong>Зависимость от количества деревьев:</strong></h3>
+<p>**При малом количестве деревьев (1-10) можно отметить следущее:**модель недообучена, высокая ошибка на обеих выборках, с каждым новым деревом ошибка значительно уменьшается
+<strong>Оптимальная зона это 10-50 деревьев</strong> Такое кол-во имеет следующие преимущества: ошибка достигает минимума, разница между train и test ошибкой умеренная, лучший баланс bias-variance.</p>
+<p><strong>При большом количестве деревьев (50+)</strong> может наблюдаться возможное переобучение (разница ошибок растет), уменьшение возврата от добавления новых деревьев и увеличение вычислительных затрат</p>
+<h3 id="%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C-%D0%BE%D1%82-%D0%B3%D0%BB%D1%83%D0%B1%D0%B8%D0%BD%D1%8B-%D0%B4%D0%B5%D1%80%D0%B5%D0%B2%D1%8C%D0%B5%D0%B2"><strong>Зависимость от глубины деревьев:</strong></h3>
+<p><strong>При мелких деревьях (depth=1-2)</strong>: сильное недообучение, требуется больше деревьев для достижения хорошего качества, стабильная работа, но ограниченная предсказательная сила</p>
+<p><strong>Оптимальная глубина это 3-5</strong>: хороший баланс сложности и обобщения, быстрое уменьшение ошибки, умеренное переобучение
+<strong>Глубокие деревья (6+)</strong>: сильное переобучение (большая разница train/test ошибок), быстрое достижение минимума ошибки, чувствительность к выбросам.</p>
+<p><strong>Я заметил взаимосвязь параметров:</strong> глубина влияет на оптимальное количество деревьев**:
+Более глубокие деревья → нужно меньше деревьев, мелкие деревья → нужно больше деревьев</p>
+<p>График:</p>
+<p>![[Pasted image 20251204214300.png]]</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeRegressor
+
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_diabetes
+
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+  
+
+<span class="hljs-comment"># Загрузка данных</span>
+
+X, y = load_diabetes(return_X_y=<span class="hljs-literal">True</span>)
+
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+
+    X, y, test_size=<span class="hljs-number">0.25</span>, random_state=<span class="hljs-number">42</span>
+
+)
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gb_predict</span><span class="hljs-params">(X, trees_list, eta)</span>:</span>
+
+    <span class="hljs-string">"""Предсказание градиентного бустинга"""</span>
+
+    predictions = np.zeros(X.shape[<span class="hljs-number">0</span>])
+
+    <span class="hljs-keyword">for</span> tree <span class="hljs-keyword">in</span> trees_list:
+
+        predictions += eta * tree.predict(X)
+
+    <span class="hljs-keyword">return</span> predictions
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mean_squared_error</span><span class="hljs-params">(y_real, prediction)</span>:</span>
+
+    <span class="hljs-string">"""Среднеквадратичная ошибка"""</span>
+
+    <span class="hljs-keyword">return</span> np.mean((y_real - prediction) ** <span class="hljs-number">2</span>)
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gb_fit</span><span class="hljs-params">(n_trees, max_depth, X_train, X_test, y_train, y_test, eta)</span>:</span>
+
+    <span class="hljs-string">"""Обучение градиентного бустинга"""</span>
+
+    trees = []
+
+    train_errors = []
+
+    test_errors = []
+
+    current_prediction_train = np.zeros(len(y_train))
+
+    current_prediction_test = np.zeros(len(y_test))
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_trees):
+
+        tree = DecisionTreeRegressor(max_depth=max_depth, random_state=<span class="hljs-number">42</span>)
+
+        <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span>:
+
+            tree.fit(X_train, y_train)
+
+        <span class="hljs-keyword">else</span>:
+
+            residuals = y_train - current_prediction_train
+
+            tree.fit(X_train, residuals)
+
+        trees.append(tree)
+
+        current_prediction_train += eta * tree.predict(X_train)
+
+        current_prediction_test += eta * tree.predict(X_test)
+
+        train_errors.append(mean_squared_error(y_train, current_prediction_train))
+
+        test_errors.append(mean_squared_error(y_test, current_prediction_test))
+
+    <span class="hljs-keyword">return</span> trees, train_errors, test_errors
+
+  
+
+<span class="hljs-comment"># =============================================</span>
+
+<span class="hljs-comment"># 1. Анализ зависимости от количества деревьев</span>
+
+<span class="hljs-comment"># =============================================</span>
+
+print(<span class="hljs-string">"="</span> * <span class="hljs-number">50</span>)
+
+print(<span class="hljs-string">"1. Зависимость от количества деревьев"</span>)
+
+print(<span class="hljs-string">"="</span> * <span class="hljs-number">50</span>)
+
+  
+
+max_depth = <span class="hljs-number">3</span>
+
+eta = <span class="hljs-number">0.1</span>
+
+tree_counts = [<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">50</span>, <span class="hljs-number">75</span>, <span class="hljs-number">100</span>]
+
+  
+
+<span class="hljs-comment"># Обучаем модель с максимальным количеством деревьев</span>
+
+trees_all, train_errors_all, test_errors_all = gb_fit(
+
+    max(tree_counts), max_depth, X_train, X_test, y_train, y_test, eta
+
+)
+
+  
+
+<span class="hljs-comment"># Собираем результаты для каждого количества деревьев</span>
+
+results_trees_train = []
+
+results_trees_test = []
+
+  
+
+<span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> tree_counts:
+
+    train_pred = gb_predict(X_train, trees_all[:n], eta)
+
+    test_pred = gb_predict(X_test, trees_all[:n], eta)
+
+    results_trees_train.append(mean_squared_error(y_train, train_pred))
+
+    results_trees_test.append(mean_squared_error(y_test, test_pred))
+
+  
+
+<span class="hljs-comment"># График 1: Ошибки vs количество деревьев</span>
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">4</span>))
+
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+
+plt.plot(tree_counts, results_trees_train, <span class="hljs-string">'b-'</span>, linewidth=<span class="hljs-number">2</span>, label=<span class="hljs-string">'Train MSE'</span>)
+
+plt.plot(tree_counts, results_trees_test, <span class="hljs-string">'r-'</span>, linewidth=<span class="hljs-number">2</span>, label=<span class="hljs-string">'Test MSE'</span>)
+
+plt.xlabel(<span class="hljs-string">'Количество деревьев'</span>)
+
+plt.ylabel(<span class="hljs-string">'MSE'</span>)
+
+plt.title(<span class="hljs-string">f'Зависимость MSE от количества деревьев\n(max_depth=<span class="hljs-subst">{max_depth}</span>, eta=<span class="hljs-subst">{eta}</span>)'</span>)
+
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>)
+
+plt.legend()
+
+  
+
+<span class="hljs-comment"># График 2: Динамика ошибок во время обучения (для 100 деревьев)</span>
+
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+
+plt.plot(range(<span class="hljs-number">1</span>, len(train_errors_all) + <span class="hljs-number">1</span>), train_errors_all, <span class="hljs-string">'b-'</span>, label=<span class="hljs-string">'Train MSE'</span>, alpha=<span class="hljs-number">0.7</span>)
+
+plt.plot(range(<span class="hljs-number">1</span>, len(test_errors_all) + <span class="hljs-number">1</span>), test_errors_all, <span class="hljs-string">'r-'</span>, label=<span class="hljs-string">'Test MSE'</span>, alpha=<span class="hljs-number">0.7</span>)
+
+plt.xlabel(<span class="hljs-string">'Итерация обучения (номер дерева)'</span>)
+
+plt.ylabel(<span class="hljs-string">'MSE'</span>)
+
+plt.title(<span class="hljs-string">'Динамика MSE в процессе обучения\n(100 деревьев)'</span>)
+
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>)
+
+plt.legend()
+
+  
+
+plt.tight_layout()
+
+plt.show()
+
+  
+
+<span class="hljs-comment"># Выводы по количеству деревьев</span>
+
+print(<span class="hljs-string">"\nАнализ зависимости от количества деревьев:"</span>)
+
+print(<span class="hljs-string">f"Глубина деревьев: <span class="hljs-subst">{max_depth}</span>"</span>)
+
+print(<span class="hljs-string">"Кол-во деревьев | Train MSE  | Test MSE   | Разница"</span>)
+
+print(<span class="hljs-string">"-"</span> * <span class="hljs-number">50</span>)
+
+<span class="hljs-keyword">for</span> i, n <span class="hljs-keyword">in</span> enumerate(tree_counts):
+
+    diff = results_trees_test[i] - results_trees_train[i]
+
+    print(<span class="hljs-string">f"<span class="hljs-subst">{n:<span class="hljs-number">14</span>d}</span> | <span class="hljs-subst">{results_trees_train[i]:<span class="hljs-number">10.2</span>f}</span> | <span class="hljs-subst">{results_trees_test[i]:<span class="hljs-number">10.2</span>f}</span> | <span class="hljs-subst">{diff:<span class="hljs-number">7.2</span>f}</span>"</span>)
+
+  
+
+<span class="hljs-comment"># =============================================</span>
+
+<span class="hljs-comment"># 2. Анализ зависимости от глубины деревьев</span>
+
+<span class="hljs-comment"># =============================================</span>
+
+print(<span class="hljs-string">"\n"</span> + <span class="hljs-string">"="</span> * <span class="hljs-number">50</span>)
+
+print(<span class="hljs-string">"2. Зависимость от глубины деревьев"</span>)
+
+print(<span class="hljs-string">"="</span> * <span class="hljs-number">50</span>)
+
+  
+
+n_trees = <span class="hljs-number">50</span>
+
+eta = <span class="hljs-number">0.1</span>
+
+depths = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">8</span>, <span class="hljs-number">10</span>]
+
+  
+
+results_depth_train = []
+
+results_depth_test = []
+
+  
+
+<span class="hljs-keyword">for</span> depth <span class="hljs-keyword">in</span> depths:
+
+    trees, train_errors, test_errors = gb_fit(
+
+        n_trees, depth, X_train, X_test, y_train, y_test, eta
+
+    )
+
+    results_depth_train.append(train_errors[<span class="hljs-number">-1</span>])
+
+    results_depth_test.append(test_errors[<span class="hljs-number">-1</span>])
+
+    print(<span class="hljs-string">f"Глубина <span class="hljs-subst">{depth}</span>: Train MSE = <span class="hljs-subst">{train_errors[<span class="hljs-number">-1</span>]:<span class="hljs-number">.2</span>f}</span>, Test MSE = <span class="hljs-subst">{test_errors[<span class="hljs-number">-1</span>]:<span class="hljs-number">.2</span>f}</span>"</span>)
+
+  
+
+<span class="hljs-comment"># График 3: Ошибки vs глубина деревьев</span>
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">4</span>))
+
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+
+plt.plot(depths, results_depth_train, <span class="hljs-string">'b-'</span>, linewidth=<span class="hljs-number">2</span>, marker=<span class="hljs-string">'o'</span>, label=<span class="hljs-string">'Train MSE'</span>)
+
+plt.plot(depths, results_depth_test, <span class="hljs-string">'r-'</span>, linewidth=<span class="hljs-number">2</span>, marker=<span class="hljs-string">'s'</span>, label=<span class="hljs-string">'Test MSE'</span>)
+
+plt.xlabel(<span class="hljs-string">'Максимальная глубина деревьев'</span>)
+
+plt.ylabel(<span class="hljs-string">'MSE'</span>)
+
+plt.title(<span class="hljs-string">f'Зависимость MSE от глубины деревьев\n(n_trees=<span class="hljs-subst">{n_trees}</span>, eta=<span class="hljs-subst">{eta}</span>)'</span>)
+
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>)
+
+plt.legend()
+
+  
+
+<span class="hljs-comment"># График 4: Разница ошибок vs глубина деревьев</span>
+
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+
+diff_errors = np.array(results_depth_test) - np.array(results_depth_train)
+
+plt.bar([str(d) <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> depths], diff_errors, color=[<span class="hljs-string">'red'</span> <span class="hljs-keyword">if</span> d &gt; <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'green'</span> <span class="hljs-keyword">for</span> d <span class="hljs-keyword">in</span> diff_errors])
+
+plt.xlabel(<span class="hljs-string">'Максимальная глубина деревьев'</span>)
+
+plt.ylabel(<span class="hljs-string">'Test MSE - Train MSE'</span>)
+
+plt.title(<span class="hljs-string">'Степень переобучения от глубины'</span>)
+
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>, axis=<span class="hljs-string">'y'</span>)
+
+plt.axhline(y=<span class="hljs-number">0</span>, color=<span class="hljs-string">'k'</span>, linestyle=<span class="hljs-string">'--'</span>, alpha=<span class="hljs-number">0.5</span>)
+
+  
+
+plt.tight_layout()
+
+plt.show()
+</div></code></pre>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-2">**Задание 2:</h3>
+<p>Модифицировать реализованный алгоритм градиентного бустинга, чтобы получился стохастический градиентный бустинг. Размер подвыборки принять равным 0.5. Сравнить на одном графике кривые изменения ошибки на тестовой выборке в зависимости от числа итераций.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение:</h3>
+<p>Добавил случайный выбор индексов</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gb_fit_stochastic</span><span class="hljs-params">(..., subsample=<span class="hljs-number">0.5</span>)</span>:</span>
+</div></code></pre>
+<p>Добавил расчет размера подвыборки:</p>
+<pre class="hljs"><code><div>n_samples = int(len(y_train) * subsample)
+</div></code></pre>
+<p>Добавил новый параметр <code>subsample=0.5</code></p>
+<pre class="hljs"><code><div>indices = np.random.choice(len(y_train), size=n_samples, replace=<span class="hljs-literal">False</span>)
+</div></code></pre>
+<p>Вместо обучения на всей выборке <code>tree.fit(X_train, ...)</code>
+Теперь обучаем на подвыборке <code>tree.fit(X_batch, ...)</code></p>
+<p>Какие преимущества я выделил:</p>
+<ol>
+<li><strong>Меньше переобучения</strong> - деревья менее коррелированы</li>
+<li><strong>Быстрее обучение</strong> - каждое дерево обучается на меньшем объеме данных</li>
+<li><strong>Лучшая обобщающая способность</strong> - особенно на больших данных</li>
+</ol>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-3">**Задание 3:</h3>
+<p>Оптимизировать процесс обучения градиентного бустинга, чтобы он занимал меньше времени.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение:</h3>
+<p>Для того, чтобы оптимизировать код я добавил раннюю остановку и векторизацию</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+
+<span class="hljs-keyword">from</span> sklearn.tree <span class="hljs-keyword">import</span> DecisionTreeRegressor
+
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_diabetes
+
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+  
+
+<span class="hljs-comment"># Загрузка данных</span>
+
+X, y = load_diabetes(return_X_y=<span class="hljs-literal">True</span>)
+
+X_train, X_test, y_train, y_test = model_selection.train_test_split(
+
+    X, y, test_size=<span class="hljs-number">0.25</span>, random_state=<span class="hljs-number">42</span>
+
+)
+
+  
+
+<span class="hljs-comment"># 1. Базовая версия градиентного бустинга</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gb_fit_slow</span><span class="hljs-params">(n_trees, max_depth, X_train, X_test, y_train, y_test, eta)</span>:</span>
+
+    train_errors = []
+
+    test_errors = []
+
+    current_prediction_train = np.zeros(len(y_train))
+
+    current_prediction_test = np.zeros(len(y_test))
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_trees):
+
+        tree = DecisionTreeRegressor(max_depth=max_depth, random_state=<span class="hljs-number">42</span>)
+
+        <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span>:
+
+            tree.fit(X_train, y_train)
+
+        <span class="hljs-keyword">else</span>:
+
+            residuals = y_train - current_prediction_train
+
+            tree.fit(X_train, residuals)
+
+        pred_train = tree.predict(X_train)
+
+        pred_test = tree.predict(X_test)
+
+        current_prediction_train += eta * pred_train
+
+        current_prediction_test += eta * pred_test
+
+        train_errors.append(np.mean((y_train - current_prediction_train) ** <span class="hljs-number">2</span>))
+
+        test_errors.append(np.mean((y_test - current_prediction_test) ** <span class="hljs-number">2</span>))
+
+    <span class="hljs-keyword">return</span> train_errors, test_errors
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gb_fit_fast</span><span class="hljs-params">(n_trees, max_depth, X_train, X_test, y_train, y_test, eta)</span>:</span>
+
+    train_errors = []
+
+    test_errors = []
+
+    current_prediction_train = np.zeros(len(y_train), dtype=np.float32)
+
+    current_prediction_test = np.zeros(len(y_test), dtype=np.float32)
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_trees):
+
+        tree = DecisionTreeRegressor(max_depth=max_depth, random_state=<span class="hljs-number">42</span>)
+
+        <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span>:
+
+            tree.fit(X_train, y_train)
+
+        <span class="hljs-keyword">else</span>:
+
+            residuals = y_train - current_prediction_train
+
+            tree.fit(X_train, residuals)
+
+        pred_train = tree.predict(X_train).astype(np.float32)
+
+        pred_test = tree.predict(X_test).astype(np.float32)
+
+        np.add(current_prediction_train, eta * pred_train, out=current_prediction_train)
+
+        np.add(current_prediction_test, eta * pred_test, out=current_prediction_test)
+
+        train_errors.append(np.mean((y_train - current_prediction_train) ** <span class="hljs-number">2</span>))
+
+        test_errors.append(np.mean((y_test - current_prediction_test) ** <span class="hljs-number">2</span>))
+
+    <span class="hljs-keyword">return</span> train_errors, test_errors
+
+  
+
+<span class="hljs-comment"># 3. Оптимизированная версия с ранней остановкой</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gb_fit_fast_early_stop</span><span class="hljs-params">(n_trees, max_depth, X_train, X_test, y_train, y_test, eta, early_stop=<span class="hljs-number">10</span>)</span>:</span>
+
+    train_errors = []
+
+    test_errors = []
+
+    current_prediction_train = np.zeros(len(y_train), dtype=np.float32)
+
+    current_prediction_test = np.zeros(len(y_test), dtype=np.float32)
+
+    best_test_error = float(<span class="hljs-string">'inf'</span>)
+
+    no_improvement = <span class="hljs-number">0</span>
+
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(n_trees):
+
+        tree = DecisionTreeRegressor(max_depth=max_depth, random_state=<span class="hljs-number">42</span>)
+
+        <span class="hljs-keyword">if</span> i == <span class="hljs-number">0</span>:
+
+            tree.fit(X_train, y_train)
+
+        <span class="hljs-keyword">else</span>:
+
+            residuals = y_train - current_prediction_train
+
+            tree.fit(X_train, residuals)
+
+        pred_train = tree.predict(X_train).astype(np.float32)
+
+        pred_test = tree.predict(X_test).astype(np.float32)
+
+        np.add(current_prediction_train, eta * pred_train, out=current_prediction_train)
+
+        np.add(current_prediction_test, eta * pred_test, out=current_prediction_test)
+
+        train_error = np.mean((y_train - current_prediction_train) ** <span class="hljs-number">2</span>)
+
+        test_error = np.mean((y_test - current_prediction_test) ** <span class="hljs-number">2</span>)
+
+        train_errors.append(train_error)
+
+        test_errors.append(test_error)
+
+        <span class="hljs-comment"># Проверка ранней остановки</span>
+
+        <span class="hljs-keyword">if</span> test_error &lt; best_test_error:
+
+            best_test_error = test_error
+
+            no_improvement = <span class="hljs-number">0</span>
+
+        <span class="hljs-keyword">else</span>:
+
+            no_improvement += <span class="hljs-number">1</span>
+
+        <span class="hljs-keyword">if</span> no_improvement &gt;= early_stop:
+
+            <span class="hljs-keyword">break</span>
+
+    <span class="hljs-keyword">return</span> train_errors, test_errors
+
+  
+
+<span class="hljs-comment"># Параметры для экспериментов</span>
+
+n_trees = <span class="hljs-number">100</span>
+
+max_depth = <span class="hljs-number">3</span>
+
+eta = <span class="hljs-number">0.1</span>
+
+  
+
+<span class="hljs-comment"># Запуск всех версий</span>
+
+train_slow, test_slow = gb_fit_slow(n_trees, max_depth, X_train, X_test, y_train, y_test, eta)
+
+train_fast, test_fast = gb_fit_fast(n_trees, max_depth, X_train, X_test, y_train, y_test, eta)
+
+train_early, test_early = gb_fit_fast_early_stop(n_trees, max_depth, X_train, X_test, y_train, y_test, eta, early_stop=<span class="hljs-number">10</span>)
+
+  
+
+<span class="hljs-comment"># Построение графиков</span>
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">4</span>))
+
+  
+
+<span class="hljs-comment"># График 1: Сравнение ошибок на тестовой выборке</span>
+
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>)
+
+plt.plot(range(<span class="hljs-number">1</span>, len(test_slow) + <span class="hljs-number">1</span>), test_slow, <span class="hljs-string">'b-'</span>, label=<span class="hljs-string">'Базовая'</span>, linewidth=<span class="hljs-number">2</span>)
+
+plt.plot(range(<span class="hljs-number">1</span>, len(test_fast) + <span class="hljs-number">1</span>), test_fast, <span class="hljs-string">'r-'</span>, label=<span class="hljs-string">'Оптимизированная'</span>, linewidth=<span class="hljs-number">2</span>)
+
+plt.plot(range(<span class="hljs-number">1</span>, len(test_early) + <span class="hljs-number">1</span>), test_early, <span class="hljs-string">'g-'</span>, label=<span class="hljs-string">'С ранней остановкой'</span>, linewidth=<span class="hljs-number">2</span>)
+
+plt.xlabel(<span class="hljs-string">'Количество деревьев'</span>)
+
+plt.ylabel(<span class="hljs-string">'MSE на тестовой выборке'</span>)
+
+plt.title(<span class="hljs-string">'Сравнение версий градиентного бустинга'</span>)
+
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>)
+
+plt.legend()
+
+  
+
+<span class="hljs-comment"># График 2: Финальные ошибки</span>
+
+plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+
+final_errors = [test_slow[<span class="hljs-number">-1</span>], test_fast[<span class="hljs-number">-1</span>], test_early[<span class="hljs-number">-1</span>]]
+
+labels = [<span class="hljs-string">'Базовая'</span>, <span class="hljs-string">'Оптимизированная'</span>, <span class="hljs-string">'Ранняя остановка'</span>]
+
+colors = [<span class="hljs-string">'blue'</span>, <span class="hljs-string">'red'</span>, <span class="hljs-string">'green'</span>]
+
+  
+
+bars = plt.bar(labels, final_errors, color=colors, alpha=<span class="hljs-number">0.7</span>)
+
+plt.ylabel(<span class="hljs-string">'Финальная MSE'</span>)
+
+plt.title(<span class="hljs-string">'Финальные ошибки на тестовой выборке'</span>)
+
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>, axis=<span class="hljs-string">'y'</span>)
+
+  
+
+<span class="hljs-comment"># Добавляем значения на столбцы</span>
+
+<span class="hljs-keyword">for</span> bar, error <span class="hljs-keyword">in</span> zip(bars, final_errors):
+
+    height = bar.get_height()
+
+    plt.text(bar.get_x() + bar.get_width()/<span class="hljs-number">2.</span>, height + <span class="hljs-number">50</span>,
+
+             <span class="hljs-string">f'<span class="hljs-subst">{error:<span class="hljs-number">.0</span>f}</span>'</span>, ha=<span class="hljs-string">'center'</span>, va=<span class="hljs-string">'bottom'</span>)
+
+  
+
+plt.tight_layout()
+
+plt.show()
+
+  
+
+<span class="hljs-comment"># Минимальные ошибки для анализа</span>
+
+min_slow = min(test_slow)
+
+min_fast = min(test_fast)
+
+min_early = min(test_early)
+
+  
+
+
+
+n_trees_early = len(test_early)
+</div></code></pre>
+
+</body>
+</html>

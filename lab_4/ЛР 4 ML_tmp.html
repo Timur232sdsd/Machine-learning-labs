@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ЛР 4 ML.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="front-matter">Front matter</h2>
+<p>title: &quot;Отчёт по лабораторной работе №4&quot;
+author: &quot;Тимур Каримов&quot;</p>
+<h2 id="generic-options">Generic options</h2>
+<p>lang: ru-RU
+toc-title: &quot;Содержание&quot;</p>
+<h2 id="bibliography">Bibliography</h2>
+<p>bibliography: bib/cite.bib
+csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl</p>
+<h2 id="pdf-output-format">Pdf output format</h2>
+<p>toc: true
+toc-depth: 2
+lof: true
+lot: true
+fontsize: 12pt
+linestretch: 1.5
+papersize: a4
+documentclass: scrreprt</p>
+<h2 id="polyglossia">Polyglossia</h2>
+<p>polyglossia-lang:
+name: russian
+options:
+- spelling=modern
+- babelshorthands=true
+polyglossia-otherlangs:
+name: english</p>
+<h2 id="babel">Babel</h2>
+<p>babel-lang: russian
+babel-otherlangs: english</p>
+<h2 id="fonts">Fonts</h2>
+<p>mainfont: IBM Plex Serif
+romanfont: IBM Plex Serif
+sansfont: IBM Plex Sans
+monofont: IBM Plex Mono
+mathfont: STIX Two Math
+mainfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+romanfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+sansfontoptions: Ligatures=Common,Ligatures=TeX,Scale=MatchLowercase,Scale=0.94
+monofontoptions: Scale=MatchLowercase,Scale=0.94,FakeStretch=0.9</p>
+<h2 id="biblatex">Biblatex</h2>
+<p>biblatex: true
+biblio-style: &quot;gost-numeric&quot;
+biblatexoptions:</p>
+<ul>
+<li>parentracker=true</li>
+<li>backend=biber</li>
+<li>hyperref=auto</li>
+<li>language=auto</li>
+<li>autolang=other*</li>
+<li>citestyle=gost-numeric</li>
+</ul>
+<h2 id="pandoc-crossref">Pandoc-crossref</h2>
+<p>figureTitle: &quot;Рис.&quot;
+tableTitle: &quot;Таблица&quot;
+listingTitle: &quot;Листинг&quot;
+lofTitle: &quot;Список иллюстраций&quot;
+lotTitle: &quot;Список таблиц&quot;
+lolTitle: &quot;Листинги&quot;</p>
+<h2 id="misc">Misc</h2>
+<p>indent: true
+header-includes:</p>
+<ul>
+<li>\usepackage{indentfirst}</li>
+<li>\usepackage{float}</li>
+<li>\floatplacement{figure}{H}</li>
+</ul>
+<hr>
+<h1 id="%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Цель работы</h1>
+<p>Изучить метод обучения: деревья решения, научиться строить деревья решений, работать с деревьями в случае пропущенных значений, работать с деревьями с категориальными признаками.</p>
+<h1 id="%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Выполнение лабораторной работы</h1>
+<h1 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-1">Задание 1</h1>
+<p><strong>Формулировка:</strong> Реализуйте дерево для задачи регрессии. Возьмите за основу дерево, реализованное в файле &quot;trees&quot;, заменив механизм предсказания в листе на взятие среднего значения по выборке, и критерий Джини на дисперсию значений.</p>
+<p><strong>Решение:</strong></p>
+<p>Изменим таким образом, что</p>
+<ol>
+<li><strong>Leaf класс</strong>:
+<ul>
+<li><code>predict()</code> теперь возвращает среднее значение целевой переменной в листе</li>
+<li>Используется <code>np.mean()</code> для расчета среднего
+В классификации мы использовали моду (наиболее частый класс), потому что минимизировали критерий Джини (меру неопределенности классов). В регрессии мы минимизируем дисперсию, поэтому используем среднее.</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Задача</th>
+<th>Критерий разделения</th>
+<th>Предсказание в листе</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Классификация</td>
+<td>Джини</td>
+<td>Мода (наиболее частый класс)</td>
+</tr>
+<tr>
+<td>Регрессия</td>
+<td>Дисперсия</td>
+<td>Среднее значение</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><strong>Критерий variance</strong>:
+<ul>
+<li>Заменяет критерий Джини</li>
+<li>Рассчитывает дисперсию целевой переменной</li>
+<li>Формула: $\frac{1}{n}\sum_{i=1}^n(y_i - \bar{y})^2$
+Когда мы используем среднее значение в листе как предсказание, MSE становится равной дисперсии:</li>
+</ul>
+</li>
+<li><strong>Функция quality</strong>:</li>
+</ol>
+<ul>
+<li>Рассчитывает уменьшение дисперсии после разделения</li>
+<li>Использует взвешенную дисперсию левого и правого подмножеств</li>
+</ul>
+<p>Чем больше уменьшение дисперсии, тем лучше разделение</p>
+<p><strong>Код</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-keyword">import</span> random
+
+  
+
+<span class="hljs-keyword">from</span> matplotlib.colors <span class="hljs-keyword">import</span> ListedColormap
+
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> datasets
+
+  
+
+<span class="hljs-keyword">from</span> sklearn <span class="hljs-keyword">import</span> model_selection
+
+  
+
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+  
+
+classification_data, classification_labels = datasets.make_classification(n_features = <span class="hljs-number">2</span>, n_informative = <span class="hljs-number">2</span>,
+
+                                                      n_classes = <span class="hljs-number">2</span>, n_redundant=<span class="hljs-number">0</span>,
+
+                                                      n_clusters_per_class=<span class="hljs-number">1</span>, random_state=<span class="hljs-number">5</span>)
+
+  
+  
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>:</span>
+
+  
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, index, t, true_branch, false_branch)</span>:</span>
+
+        self.index = index  <span class="hljs-comment"># индекс признака, по которому ведется сравнение с порогом в этом узле</span>
+
+        self.t = t  <span class="hljs-comment"># значение порога</span>
+
+        self.true_branch = true_branch  <span class="hljs-comment"># поддерево, удовлетворяющее условию в узле</span>
+
+        self.false_branch = false_branch  <span class="hljs-comment"># поддерево, не удовлетворяющее условию в узле</span>
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict</span><span class="hljs-params">(data, tree)</span>:</span>
+
+  
+
+    classes = []
+
+    <span class="hljs-keyword">for</span> obj <span class="hljs-keyword">in</span> data:
+
+        prediction = classify_object(obj, tree)
+
+        classes.append(prediction)
+
+    <span class="hljs-keyword">return</span> classes
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">gini</span><span class="hljs-params">(labels)</span>:</span>
+
+    <span class="hljs-comment">#  подсчет количества объектов разных классов</span>
+
+    classes = {}
+
+    <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> labels:
+
+        <span class="hljs-keyword">if</span> label <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> classes:
+
+            classes[label] = <span class="hljs-number">0</span>
+
+        classes[label] += <span class="hljs-number">1</span>
+
+  
+
+    <span class="hljs-comment">#  расчет критерия</span>
+
+    impurity = <span class="hljs-number">1</span>
+
+    <span class="hljs-keyword">for</span> label <span class="hljs-keyword">in</span> classes:
+
+        p = classes[label] / len(labels)
+
+        impurity -= p ** <span class="hljs-number">2</span>
+
+  
+
+    <span class="hljs-keyword">return</span> impurity
+
+  
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">split</span><span class="hljs-params">(data, labels, index, t)</span>:</span>
+
+  
+
+    left = np.where(data[:, index] &lt;= t)
+
+    right = np.where(data[:, index] &gt; t)
+
+  
+
+    true_data = data[left]
+
+    false_data = data[right]
+
+    true_labels = labels[left]
+
+    false_labels = labels[right]
+
+  
+
+    <span class="hljs-keyword">return</span> true_data, false_data, true_labels, false_labels
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">build_tree</span><span class="hljs-params">(data, labels)</span>:</span>
+
+  
+
+    quality, t, index = find_best_split(data, labels)
+
+  
+
+    <span class="hljs-comment">#  Базовый случай - прекращаем рекурсию, когда нет прироста в качества</span>
+
+    <span class="hljs-keyword">if</span> quality == <span class="hljs-number">0</span>:
+
+        <span class="hljs-keyword">return</span> Leaf(data, labels)
+
+  
+
+    true_data, false_data, true_labels, false_labels = split(data, labels, index, t)
+
+  
+
+    <span class="hljs-comment"># Рекурсивно строим два поддерева</span>
+
+    true_branch = build_tree(true_data, true_labels)
+
+    false_branch = build_tree(false_data, false_labels)
+
+  
+
+    <span class="hljs-comment"># Возвращаем класс узла со всеми поддеревьями, то есть целого дерева</span>
+
+    <span class="hljs-keyword">return</span> Node(index, t, true_branch, false_branch)
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">classify_object</span><span class="hljs-params">(obj, node)</span>:</span>
+
+  
+
+    <span class="hljs-comment">#  Останавливаем рекурсию, если достигли листа</span>
+
+    <span class="hljs-keyword">if</span> isinstance(node, Leaf):
+
+        answer = node.prediction
+
+        <span class="hljs-keyword">return</span> answer
+
+  
+
+    <span class="hljs-keyword">if</span> obj[node.index] &lt;= node.t:
+
+        <span class="hljs-keyword">return</span> classify_object(obj, node.true_branch)
+
+    <span class="hljs-keyword">else</span>:
+
+        <span class="hljs-keyword">return</span> classify_object(obj, node.false_branch)
+
+  
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Leaf</span>:</span>
+
+  
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, data, labels)</span>:</span>
+
+        self.data = data
+
+        self.labels = labels
+
+        self.prediction = self.predict()
+
+  
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">predict</span><span class="hljs-params">(self)</span>:</span>
+
+        <span class="hljs-comment"># Предсказание в листе - среднее значение целевой переменной</span>
+
+        <span class="hljs-keyword">return</span> np.mean(self.labels)
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">variance</span><span class="hljs-params">(labels)</span>:</span>
+
+    <span class="hljs-comment"># Расчет дисперсии целевой переменной</span>
+
+    <span class="hljs-keyword">if</span> len(labels) == <span class="hljs-number">0</span>:
+
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+
+    mean = np.mean(labels)
+
+    <span class="hljs-keyword">return</span> np.mean((labels - mean) ** <span class="hljs-number">2</span>)
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quality</span><span class="hljs-params">(left_labels, right_labels, current_variance)</span>:</span>
+
+    <span class="hljs-comment"># Расчет качества разбиения через уменьшение дисперсии</span>
+
+    n = len(left_labels) + len(right_labels)
+
+    p_left = len(left_labels) / n
+
+    p_right = len(right_labels) / n
+
+    <span class="hljs-keyword">return</span> current_variance - (p_left * variance(left_labels) + p_right * variance(right_labels))
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_best_split</span><span class="hljs-params">(data, labels)</span>:</span>
+
+    min_leaf = <span class="hljs-number">5</span>
+
+    current_variance = variance(labels)
+
+    best_quality = <span class="hljs-number">0</span>
+
+    best_t = <span class="hljs-literal">None</span>
+
+    best_index = <span class="hljs-literal">None</span>
+
+  
+
+    n_features = data.shape[<span class="hljs-number">1</span>]
+
+  
+
+    <span class="hljs-keyword">for</span> index <span class="hljs-keyword">in</span> range(n_features):
+
+        t_values = np.unique(data[:, index])
+
+        <span class="hljs-keyword">for</span> t <span class="hljs-keyword">in</span> t_values:
+
+            true_data, false_data, true_labels, false_labels = split(data, labels, index, t)
+
+            <span class="hljs-keyword">if</span> len(true_data) &lt; min_leaf <span class="hljs-keyword">or</span> len(false_data) &lt; min_leaf:
+
+                <span class="hljs-keyword">continue</span>
+
+            current_quality = quality(true_labels, false_labels, current_variance)
+
+            <span class="hljs-keyword">if</span> current_quality &gt; best_quality:
+
+                best_quality, best_t, best_index = current_quality, t, index
+
+  
+
+    <span class="hljs-keyword">return</span> best_quality, best_t, best_index
+
+  
+
+regression_data, regression_labels = datasets.make_regression(n_features=<span class="hljs-number">2</span>, random_state=<span class="hljs-number">1</span>)
+
+  
+
+train_data, test_data, train_labels, test_labels = model_selection.train_test_split(
+
+    regression_data, regression_labels, test_size=<span class="hljs-number">0.3</span>, random_state=<span class="hljs-number">1</span>)
+
+  
+
+<span class="hljs-comment"># Построение дерева</span>
+
+tree = build_tree(train_data, train_labels)
+
+  
+
+<span class="hljs-comment"># Прогнозирование</span>
+
+predictions = predict(test_data, tree)
+
+print(predictions)
+
+  
+
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+
+<span class="hljs-keyword">from</span> sklearn.metrics <span class="hljs-keyword">import</span> mean_squared_error, r2_score
+
+  
+
+<span class="hljs-comment"># Создадим цветовые карты для регрессии</span>
+
+cmap = plt.cm.viridis
+
+light_cmap = plt.cm.viridis_r
+
+  
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_meshgrid</span><span class="hljs-params">(data, step=<span class="hljs-number">.05</span>, border=<span class="hljs-number">1.2</span>)</span>:</span>
+
+    x_min, x_max = data[:, <span class="hljs-number">0</span>].min() - border, data[:, <span class="hljs-number">0</span>].max() + border
+
+    y_min, y_max = data[:, <span class="hljs-number">1</span>].min() - border, data[:, <span class="hljs-number">1</span>].max() + border
+
+    <span class="hljs-keyword">return</span> np.meshgrid(np.arange(x_min, x_max, step), np.arange(y_min, y_max, step))
+
+  
+
+<span class="hljs-comment"># Предсказания на тренировочной и тестовой выборках</span>
+
+train_predictions = predict(train_data, tree)
+
+test_predictions = predict(test_data, tree)
+
+  
+
+<span class="hljs-comment"># Расчет метрик</span>
+
+train_mse = mean_squared_error(train_labels, train_predictions)
+
+test_mse = mean_squared_error(test_labels, test_predictions)
+
+train_r2 = r2_score(train_labels, train_predictions)
+
+test_r2 = r2_score(test_labels, test_predictions)
+
+  
+
+plt.figure(figsize = (<span class="hljs-number">16</span>, <span class="hljs-number">7</span>))
+
+  
+
+<span class="hljs-comment"># график обучающей выборки</span>
+
+plt.subplot(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)
+
+xx, yy = get_meshgrid(train_data)
+
+mesh_predictions = np.array(predict(np.c_[xx.ravel(), yy.ravel()], tree))
+
+mesh_predictions = mesh_predictions.reshape(xx.shape)
+
+  
+
+<span class="hljs-comment"># Визуализация предсказаний на сетке</span>
+
+contour = plt.contourf(xx, yy, mesh_predictions, cmap=light_cmap, alpha=<span class="hljs-number">0.8</span>)
+
+plt.colorbar(contour, label=<span class="hljs-string">'Predicted value'</span>)
+
+  
+
+<span class="hljs-comment"># Визуализация реальных точек</span>
+
+scatter = plt.scatter(train_data[:, <span class="hljs-number">0</span>], train_data[:, <span class="hljs-number">1</span>], c=train_labels, cmap=cmap, edgecolors=<span class="hljs-string">'black'</span>, s=<span class="hljs-number">50</span>)
+
+plt.colorbar(scatter, label=<span class="hljs-string">'True value'</span>)
+
+plt.title(<span class="hljs-string">f'Train MSE=<span class="hljs-subst">{train_mse:<span class="hljs-number">.2</span>f}</span>, R²=<span class="hljs-subst">{train_r2:<span class="hljs-number">.2</span>f}</span>'</span>)
+
+plt.xlabel(<span class="hljs-string">'Feature 1'</span>)
+
+plt.ylabel(<span class="hljs-string">'Feature 2'</span>)
+
+  
+
+<span class="hljs-comment"># график тестовой выборки</span>
+
+plt.subplot(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">2</span>)
+
+contour = plt.contourf(xx, yy, mesh_predictions, cmap=light_cmap, alpha=<span class="hljs-number">0.8</span>)
+
+plt.colorbar(contour, label=<span class="hljs-string">'Predicted value'</span>)
+
+  
+
+scatter = plt.scatter(test_data[:, <span class="hljs-number">0</span>], test_data[:, <span class="hljs-number">1</span>], c=test_labels, cmap=cmap, edgecolors=<span class="hljs-string">'black'</span>, s=<span class="hljs-number">50</span>)
+
+plt.colorbar(scatter, label=<span class="hljs-string">'True value'</span>)
+
+plt.title(<span class="hljs-string">f'Test MSE=<span class="hljs-subst">{test_mse:<span class="hljs-number">.2</span>f}</span>, R²=<span class="hljs-subst">{test_r2:<span class="hljs-number">.2</span>f}</span>'</span>)
+
+plt.xlabel(<span class="hljs-string">'Feature 1'</span>)
+
+plt.ylabel(<span class="hljs-string">'Feature 2'</span>)
+
+  
+
+plt.tight_layout()
+
+plt.show()
+</div></code></pre>
+<h1 id="%D0%B2%D1%8B%D0%B2%D0%BE%D0%B4%D1%8B">Выводы</h1>
+<p>Изучили метод обучения: деревья решения. В данной работе мы научились строить деревья решений, работать с деревьями в случае пропущенных значений, работать с деревьями с категориальными признаками.</p>
+<h1 id="%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8Bunnumbered">Список литературы{.unnumbered}</h1>
+<div class="{#refs}">
+</div>
+
+</body>
+</html>

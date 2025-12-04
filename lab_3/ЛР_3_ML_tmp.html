@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ЛР_3_ML.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="front-matter">Front matter</h2>
+<p>title: &quot;Отчёт по лабораторной работе №2&quot;
+subtitle: &quot;1 вариант&quot;
+author: &quot;Тимур Ринатович Каримов&quot;</p>
+<h2 id="generic-otions">Generic otions</h2>
+<p>lang: ru-RU
+toc-title: &quot;Содержание&quot;</p>
+<h2 id="bibliography">Bibliography</h2>
+<p>bibliography: bib/cite.bib
+csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl</p>
+<h2 id="pdf-output-format">Pdf output format</h2>
+<p>toc: true # Table of contents
+toc-depth: 2
+lof: true # List of figures
+lot: true # List of tables
+fontsize: 12pt
+linestretch: 1.5
+papersize: a4
+documentclass: scrreprt</p>
+<h2 id="i18n-polyglossia">I18n polyglossia</h2>
+<p>polyglossia-lang:
+name: russian
+options:
+- spelling=modern
+- babelshorthands=true
+polyglossia-otherlangs:
+name: english</p>
+<h2 id="i18n-babel">I18n babel</h2>
+<p>babel-lang: russian
+babel-otherlangs: english</p>
+<h2 id="fonts">Fonts</h2>
+<p>mainfont: IBM Plex Serif
+romanfont: IBM Plex Serif
+sansfont: IBM Plex Sans
+monofont: IBM Plex Mono
+mathfont: STIX Two Math
+mainfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+romanfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+sansfontoptions: Ligatures=Common,Ligatures=TeX,Scale=MatchLowercase,Scale=0.94
+monofontoptions: Scale=MatchLowercase,Scale=0.94,FakeStretch=0.9
+mathfontoptions:</p>
+<h2 id="biblatex">Biblatex</h2>
+<p>biblatex: true
+biblio-style: &quot;gost-numeric&quot;
+biblatexoptions:</p>
+<ul>
+<li>parentracker=true</li>
+<li>backend=biber</li>
+<li>hyperref=auto</li>
+<li>language=auto</li>
+<li>autolang=other*</li>
+<li>citestyle=gost-numeric</li>
+</ul>
+<h2 id="pandoc-crossref-latex-customization">Pandoc-crossref LaTeX customization</h2>
+<p>figureTitle: &quot;Рис.&quot;
+tableTitle: &quot;Таблица&quot;
+listingTitle: &quot;Листинг&quot;
+lofTitle: &quot;Список иллюстраций&quot;
+lotTitle: &quot;Список таблиц&quot;
+lolTitle: &quot;Листинги&quot;</p>
+<h2 id="misc-options">Misc options</h2>
+<p>indent: true
+header-includes:</p>
+<ul>
+<li>\usepackage{indentfirst}</li>
+<li>\usepackage{float} # keep figures where there are in the text</li>
+<li>\floatplacement{figure}{H} # keep figures where there are in the text</li>
+</ul>
+<hr>
+<h1 id="%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Цель работы</h1>
+<p>Умение технически реализовывать стохастический градиентный спуск, его отличие от наивного. Понимание оптимальных случаев для применения масштабирования. Изучение нового метода для оптимизации обучения - регуляризации.</p>
+<h1 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5">Задание</h1>
+<ol>
+<li>Изменить функцию calc_logloss так, чтобы нули по возможности не попадали в np.log</li>
+<li>Подобрать аргументы функции eval_model для логистической регрессии таким образом, чтобы log loss был минимальным</li>
+<li>Создать функцию calc_pred_proba, возвращающую предсказанную вероятность класса 1</li>
+<li>Создать функцию calc_pred, возвращающую предсказанный класс</li>
+<li>Реализовать функции для подсчета Accuracy, матрицы ошибок, точности и полноты, а также F1 score</li>
+</ol>
+<h1 id="%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B">Выполнение лабораторной работы</h1>
+<h2 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-1">Задание 1</h2>
+<p><strong>Формулировка:</strong> Измените функцию calc_logloss так, чтобы нули по возможности не попадали в np.log.</p>
+<p><strong>Решение:</strong>
+Задача состояла в том, чтобы функция попадала под область определения, в которых логарифм не имеет конечное значение равное const. Для этого необходимо ограничить наш y_pred.</p>
+<p><code>y_pred = np.clip(y_pred, epsilon, 1 - epsilon)</code>. Работа команды clip - приравнивает значения больше максимума к максимуму.</p>
+<p><strong>Код:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_logloss</span><span class="hljs-params">(y, y_pred, epsilon=<span class="hljs-number">1e-15</span>)</span>:</span>
+    y_pred = np.clip(y_pred, epsilon, <span class="hljs-number">1</span> - epsilon) <span class="hljs-comment"># ставим диапазон возможных чисел</span>
+    err = -np.mean(y * np.log(y_pred) + (<span class="hljs-number">1</span> - y) * np.log(<span class="hljs-number">1</span> - y_pred))
+    <span class="hljs-keyword">return</span> err
+</div></code></pre>
+<h2 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-2">Задание 2</h2>
+<p><strong>Формулировка:</strong> Подберите аргументы функции eval_model для логистической регрессии таким образом, чтобы log loss был минимальным.</p>
+<p><strong>Решение:</strong>
+Я воспользовался циклом, который будет подбирать количество итераций и скорость обучения (eta) до тех пор, пока log loss не перестанет уменьшаться.</p>
+<p><strong>Код:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">find_min_logloss</span><span class="hljs-params">(X, y, max_iterations=<span class="hljs-number">100000</span>, learning_rates=[<span class="hljs-number">0.0001</span>, <span class="hljs-number">0.001</span>, <span class="hljs-number">0.01</span>, <span class="hljs-number">0.1</span>])</span>:</span>
+    np.random.seed(<span class="hljs-number">42</span>)
+    best_W = <span class="hljs-literal">None</span>
+    best_loss = float(<span class="hljs-string">'inf'</span>)
+    best_eta = <span class="hljs-literal">None</span>
+    best_iterations = <span class="hljs-number">0</span>
+    history = []
+    
+    <span class="hljs-keyword">for</span> eta <span class="hljs-keyword">in</span> learning_rates:
+        W = np.random.randn(X.shape[<span class="hljs-number">1</span>])
+        losses = []
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(max_iterations):
+            z = np.dot(X, W)
+            y_pred = sigmoid(z)
+            loss = calc_logloss(y, y_pred)
+            losses.append(loss)
+            gradient = <span class="hljs-number">1</span>/len(X) * X.T @ (y_pred - y)
+            W -= eta * gradient
+            
+            <span class="hljs-keyword">if</span> loss &lt; best_loss:
+                best_loss = loss
+                best_W = W.copy()
+                best_eta = eta
+                best_iterations = i + <span class="hljs-number">1</span>
+            
+            <span class="hljs-comment"># Остановка</span>
+            <span class="hljs-keyword">if</span> i &gt; <span class="hljs-number">1000</span> <span class="hljs-keyword">and</span> abs(losses[<span class="hljs-number">-1</span>] - losses[<span class="hljs-number">-100</span>]) &lt; <span class="hljs-number">1e-8</span>:
+                <span class="hljs-keyword">break</span>
+                
+        history.append({
+            <span class="hljs-string">'eta'</span>: eta,
+            <span class="hljs-string">'losses'</span>: losses,
+            <span class="hljs-string">'final_loss'</span>: losses[<span class="hljs-number">-1</span>]
+        })
+    
+    <span class="hljs-comment"># Визуализация</span>
+    plt.figure(figsize=(<span class="hljs-number">15</span>, <span class="hljs-number">5</span>))
+    
+    plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>)
+    <span class="hljs-keyword">for</span> hist <span class="hljs-keyword">in</span> history:
+        plt.plot(hist[<span class="hljs-string">'losses'</span>][:<span class="hljs-number">1000</span>], label=<span class="hljs-string">f'eta=<span class="hljs-subst">{hist[<span class="hljs-string">"eta"</span>]}</span>'</span>)
+    plt.xlabel(<span class="hljs-string">'Итерации'</span>)
+    plt.ylabel(<span class="hljs-string">'Log Loss'</span>)
+    plt.legend()
+    plt.title(<span class="hljs-string">'Сходимость по итерациям'</span>)
+    plt.yscale(<span class="hljs-string">'log'</span>)
+    
+    plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>)
+    etas = [hist[<span class="hljs-string">'eta'</span>] <span class="hljs-keyword">for</span> hist <span class="hljs-keyword">in</span> history]
+    final_losses = [hist[<span class="hljs-string">'final_loss'</span>] <span class="hljs-keyword">for</span> hist <span class="hljs-keyword">in</span> history]
+    plt.plot(etas, final_losses, <span class="hljs-string">'o-'</span>)
+    plt.xscale(<span class="hljs-string">'log'</span>)
+    plt.xlabel(<span class="hljs-string">'Learning Rate (eta)'</span>)
+    plt.ylabel(<span class="hljs-string">'Final Log Loss'</span>)
+    plt.title(<span class="hljs-string">'Зависимость loss от learning rate'</span>)
+    
+    plt.subplot(<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">3</span>)
+    z_best = np.dot(X, best_W)
+    y_pred_best = sigmoid(z_best)
+    predictions = (y_pred_best &gt; <span class="hljs-number">0.5</span>).astype(int)
+    accuracy = np.mean(predictions == y)
+    plt.bar([<span class="hljs-string">'Accuracy'</span>], [accuracy], color=<span class="hljs-string">'green'</span> <span class="hljs-keyword">if</span> accuracy &gt; <span class="hljs-number">0.9</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'orange'</span>)
+    plt.ylim(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>)
+    plt.title(<span class="hljs-string">f'Точность: <span class="hljs-subst">{accuracy:<span class="hljs-number">.1</span>%}</span>'</span>)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    <span class="hljs-keyword">return</span> best_W, best_loss, best_eta, best_iterations
+
+best_W, best_loss, best_eta, best_iterations = find_min_logloss(X, y)
+
+print(<span class="hljs-string">f"Минимальный Log Loss: <span class="hljs-subst">{best_loss:<span class="hljs-number">.6</span>f}</span>"</span>)
+print(<span class="hljs-string">f"Лучший learning rate: <span class="hljs-subst">{best_eta}</span>"</span>)
+print(<span class="hljs-string">f"Достигнут за <span class="hljs-subst">{best_iterations}</span> итераций"</span>)
+print(<span class="hljs-string">f"Оптимальные веса: <span class="hljs-subst">{best_W}</span>"</span>)
+</div></code></pre>
+<p><strong>График:</strong></p>
+<p>![График сходимости](image/Pasted image 20251016001048.png){#fig:001 width=70%}</p>
+<h2 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-3">Задание 3</h2>
+<p><strong>Формулировка:</strong> Создайте функцию calc_pred_proba, возвращающую предсказанную вероятность класса 1 (на вход подаются W, который уже посчитан функцией eval_model и X, на выходе - массив y_pred_proba).</p>
+<p><strong>Решение:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_pred_proba</span><span class="hljs-params">(W, X)</span>:</span>
+    z = np.dot(X, W)
+    <span class="hljs-keyword">return</span> sigmoid(z)
+</div></code></pre>
+<p>Так как функция <code>calc_pred_proba</code> совпадает с сигмоидой потому, что <strong>в логистической регрессии сигмоидная функция как раз и вычисляет вероятность принадлежности к классу 1</strong>.</p>
+<h2 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-4">Задание 4</h2>
+<p><strong>Формулировка:</strong> Создайте функцию <code>calc_pred</code>, возвращающую предсказанный класс (на вход подаются $W$, который уже посчитан функцией <code>eval_model</code> и $X$, на выходе - массив y_pred).</p>
+<p><strong>Решение:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calc_pred</span><span class="hljs-params">(W, X, porog=<span class="hljs-number">0.5</span>)</span>:</span>
+    y_pred_proba = calc_pred_proba(W, X)
+    y_pred = (y_pred_proba &gt;= porog).astype(np.float64) <span class="hljs-comment"># Для того, чтобы тип был не bool</span>
+    <span class="hljs-keyword">return</span> y_pred
+</div></code></pre>
+<p>В общем, порог классификации - это значение, от которого мы отталкиваемся, чтобы решить, к какому классу отнести объект. В связи, с чем можно задать классификацию с помощью условия.</p>
+<h2 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-5">Задание 5</h2>
+<p><strong>Формулировка:</strong> Реализуйте функции для подсчета Accuracy, матрицы ошибок, точности и полноты, а также F1 score.</p>
+<p><strong>Код:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">accuracy_score</span><span class="hljs-params">(y, y_pred)</span>:</span>
+    correct = np.sum(y == y_pred)
+    total = len(y)
+    <span class="hljs-keyword">return</span> correct / total
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">confusion_matrix</span><span class="hljs-params">(y, y_pred)</span>:</span>
+    tp = np.sum((y == <span class="hljs-number">1</span>) &amp; (y_pred == <span class="hljs-number">1</span>))
+    tn = np.sum((y == <span class="hljs-number">0</span>) &amp; (y_pred == <span class="hljs-number">0</span>))
+    fp = np.sum((y == <span class="hljs-number">0</span>) &amp; (y_pred == <span class="hljs-number">1</span>))
+    fn = np.sum((y == <span class="hljs-number">1</span>) &amp; (y_pred == <span class="hljs-number">0</span>))
+    <span class="hljs-keyword">return</span> np.array([[tn, fp], [fn, tp]])
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">precision_score</span><span class="hljs-params">(y, y_pred)</span>:</span>
+    cm = confusion_matrix(y, y_pred)
+    tp = cm[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+    fp = cm[<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+    <span class="hljs-keyword">if</span> tp + fp == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span>  
+    <span class="hljs-keyword">return</span> tp / (tp + fp)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">recall_score</span><span class="hljs-params">(y, y_pred)</span>:</span>
+    cm = confusion_matrix(y, y_pred)
+    tp = cm[<span class="hljs-number">1</span>, <span class="hljs-number">1</span>]
+    fn = cm[<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
+    <span class="hljs-keyword">if</span> tp + fn == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span>
+    <span class="hljs-keyword">return</span> tp / (tp + fn)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f1_score</span><span class="hljs-params">(y, y_pred)</span>:</span>
+    precision = precision_score(y, y_pred)
+    recall = recall_score(y, y_pred)
+    <span class="hljs-keyword">if</span> precision + recall == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * (precision * recall) / (precision + recall)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">"__main__"</span>:
+    y = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>])
+    y_pred = np.array([<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>])
+    print(<span class="hljs-string">"Accuracy:"</span>, accuracy_score(y, y_pred))
+    print(<span class="hljs-string">"Confusion Matrix:\n"</span>, confusion_matrix(y, y_pred))
+    print(<span class="hljs-string">"Precision:"</span>, precision_score(y, y_pred))
+    print(<span class="hljs-string">"Recall:"</span>, recall_score(y, y_pred))
+    print(<span class="hljs-string">"F1-score:"</span>, f1_score(y, y_pred))
+</div></code></pre>
+<ul>
+<li>F1-мера — это гармоническое среднее точности и полноты.</li>
+</ul>
+<p><strong>Вывод:</strong></p>
+<p>![Результаты метрик](image/Pasted image 20251016003928.png){#fig:002 width=70%}</p>
+<h1 id="%D0%B2%D1%8B%D0%B2%D0%BE%D0%B4%D1%8B">Выводы</h1>
+<p>В ходе выполнения лабораторной работы были успешно реализованы и протестированы основные функции для работы с логистической регрессией. Были получены навыки оптимизации параметров модели, работы с функциями потерь и оценки качества классификации с помощью различных метрик.</p>
+<h1 id="%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D1%8Bunnumbered">Список литературы{.unnumbered}</h1>
+<div class="{#refs}">
+</div>
+
+</body>
+</html>

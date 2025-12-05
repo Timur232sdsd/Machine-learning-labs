@@ -55,7 +55,9 @@
 
 График:
 
-![[Pasted image 20251204214300.png]]
+
+![Результат для 1 ого задания](image/image20251204214300.png){#fig:01 width=70%}
+
 
 ```Python
 from sklearn import model_selection

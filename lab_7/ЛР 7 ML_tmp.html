@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ЛР 7 ML.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="%D1%80%D0%BE%D1%81%D1%81%D0%B8%D0%B9%D1%81%D0%BA%D0%B8%D0%B9-%D1%83%D0%BD%D0%B8%D0%B2%D0%B5%D1%80%D1%81%D0%B8%D1%82%D0%B5%D1%82-%D0%B4%D1%80%D1%83%D0%B6%D0%B1%D1%8B-%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BE%D0%B2">РОССИЙСКИЙ УНИВЕРСИТЕТ ДРУЖБЫ НАРОДОВ</h1>
+<p><strong>Факультет физико-математических и естественных наук</strong></p>
+<p><strong>Кафедра теории вероятностей и кибербезопасности</strong></p>
+<hr>
+<h2 id="%D0%BE%D1%82%D1%87%D0%B5%D1%82-%D0%BF%D0%BE-%D0%BB%D0%B0%D0%B1%D0%BE%D1%80%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%BE%D0%B9-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B5-%E2%84%96">**ОТЧЕТ ПО ЛАБОРАТОРНОЙ РАБОТЕ № **</h2>
+<p><strong>Дисциплина:</strong> Компьютерные науки и технологии программирования</p>
+<p><strong>Студент:</strong> Каримов Тимур Ринатович</p>
+<p><strong>Группа:</strong> 1132246817</p>
+<p><strong>Преподаватель:</strong> Бегишев В.О.</p>
+<p><strong>МОСКВА 2024 г.</strong></p>
+<hr>
+<h2 id="%D1%86%D0%B5%D0%BB%D1%8C-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B"><strong>Цель работы:</strong></h2>
+<hr>
+<h2 id="%D0%B2%D1%8B%D0%BF%D0%BE%D0%BB%D0%BD%D0%B5%D0%BD%D0%B8%D0%B5-%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%8B"><strong>Выполнение работы</strong></h2>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-1">**Задание 1:</h3>
+<p>К алгоритму kNN, реализованному в этой работе, реализовать добавление весов для соседей по любому из показанных в этой лабораторной принципов.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение</h3>
+<p>В обычном kNN каждый из k ближайших соседей имеет одинаковый голос (вес = 1). Во взвешенном kNN ближайшие соседи имеют <strong>больший вес</strong>, чем более далекие.</p>
+<p>Я добавил добавил в функцию `knn_weighted'</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">knn_weighted</span><span class="hljs-params">(x_train, y_train, x_test, k, weight_type=<span class="hljs-string">'uniform'</span>)</span>:</span>
+
+</div></code></pre>
+<p>Для каждого тестового объекта: находим k ближайших соседей</p>
+<pre class="hljs"><code><div>neighbors = sorted(test_distances)[<span class="hljs-number">0</span>:k]
+</div></code></pre>
+<p>Применяем весовую функцию:</p>
+<pre class="hljs"><code><div>
+<span class="hljs-keyword">if</span> weight_type == <span class="hljs-string">'uniform'</span>:
+    weight = <span class="hljs-number">1.0</span>
+<span class="hljs-keyword">elif</span> weight_type == <span class="hljs-string">'inverse'</span>:
+    <span class="hljs-comment"># Близкие объекты = большой вес</span>
+    weight = <span class="hljs-number">1.0</span> / (distance + <span class="hljs-number">1e-10</span>)
+<span class="hljs-keyword">elif</span> weight_type == <span class="hljs-string">'inverse_square'</span>:
+    <span class="hljs-comment"># Еще сильнее усиливаем близкие объекты</span>
+    weight = <span class="hljs-number">1.0</span> / (distance**<span class="hljs-number">2</span> + <span class="hljs-number">1e-10</span>)
+<span class="hljs-keyword">elif</span> weight_type == <span class="hljs-string">'gaussian'</span>:
+    <span class="hljs-comment"># Экспоненциальное убывание веса</span>
+    weight = np.exp(-distance**<span class="hljs-number">2</span> / (<span class="hljs-number">2</span> * sigma**<span class="hljs-number">2</span>))
+</div></code></pre>
+<h4 id="%D1%81%D1%83%D0%BC%D0%BC%D0%B8%D1%80%D1%83%D0%B5%D0%BC-%D0%B2%D0%B5%D1%81%D0%B0-%D0%BF%D0%BE-%D0%BA%D0%BB%D0%B0%D1%81%D1%81%D0%B0%D0%BC">Суммируем веса по классам:</h4>
+<pre class="hljs"><code><div>
+classes[class_label] += weight
+</div></code></pre>
+<p>Выбираем класс с наибольшим суммарным весом:</p>
+<pre class="hljs"><code><div>answers.append(max(classes, key=classes.get))
+</div></code></pre>
+<p>Код:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_iris
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+<span class="hljs-keyword">from</span> matplotlib.colors <span class="hljs-keyword">import</span> ListedColormap
+
+<span class="hljs-comment"># Загрузка данных</span>
+X, y = load_iris(return_X_y=<span class="hljs-literal">True</span>)
+X = X[:, :<span class="hljs-number">2</span>]  <span class="hljs-comment"># Для наглядности возьмем только первые два признака</span>
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">1</span>, stratify=y)
+
+<span class="hljs-comment"># Евклидова метрика расстояния</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">e_metrics</span><span class="hljs-params">(x1, x2)</span>:</span>
+    distance = np.sum(np.square(x1 - x2))
+    <span class="hljs-keyword">return</span> np.sqrt(distance)
+
+<span class="hljs-comment"># Модифицированный алгоритм kNN с весами</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">knn_weighted</span><span class="hljs-params">(x_train, y_train, x_test, k, weight_type=<span class="hljs-string">'uniform'</span>)</span>:</span>
+    <span class="hljs-string">"""
+    Реализация kNN с весами
+    
+    Параметры:
+    -----------
+    weight_type : str
+        Тип весовой функции:
+        - 'uniform': равные веса (стандартный kNN)
+        - 'inverse': обратное расстояние (1 / distance)
+        - 'inverse_square': обратный квадрат расстояния (1 / distance^2)
+        - 'gaussian': гауссовское ядро exp(-distance^2 / sigma^2)
+    """</span>
+    answers = []
+    
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> x_test:
+        test_distances = []
+        
+        <span class="hljs-comment"># Рассчитываем расстояния до всех объектов обучающей выборки</span>
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(x_train)):
+            distance = e_metrics(x, x_train[i])
+            test_distances.append((distance, y_train[i]))
+        
+        <span class="hljs-comment"># Сортируем по расстоянию и берем k ближайших соседей</span>
+        neighbors = sorted(test_distances)[<span class="hljs-number">0</span>:k]
+        
+        <span class="hljs-comment"># Создаем словарь для подсчета взвешенных голосов</span>
+        classes = {class_item: <span class="hljs-number">0.0</span> <span class="hljs-keyword">for</span> class_item <span class="hljs-keyword">in</span> set(y_train)}
+        
+        <span class="hljs-comment"># Применяем весовую функцию</span>
+        <span class="hljs-keyword">for</span> distance, class_label <span class="hljs-keyword">in</span> neighbors:
+            <span class="hljs-keyword">if</span> weight_type == <span class="hljs-string">'uniform'</span>:
+                weight = <span class="hljs-number">1.0</span>
+            <span class="hljs-keyword">elif</span> weight_type == <span class="hljs-string">'inverse'</span>:
+                <span class="hljs-comment"># Добавляем маленькое значение для избежания деления на 0</span>
+                weight = <span class="hljs-number">1.0</span> / (distance + <span class="hljs-number">1e-10</span>)
+            <span class="hljs-keyword">elif</span> weight_type == <span class="hljs-string">'inverse_square'</span>:
+                weight = <span class="hljs-number">1.0</span> / (distance**<span class="hljs-number">2</span> + <span class="hljs-number">1e-10</span>)
+            <span class="hljs-keyword">elif</span> weight_type == <span class="hljs-string">'gaussian'</span>:
+                <span class="hljs-comment"># Автоматический подбор sigma (можно настроить)</span>
+                sigma = np.mean([d <span class="hljs-keyword">for</span> d, _ <span class="hljs-keyword">in</span> neighbors]) + <span class="hljs-number">1e-10</span>
+                weight = np.exp(-distance**<span class="hljs-number">2</span> / (<span class="hljs-number">2</span> * sigma**<span class="hljs-number">2</span>))
+            <span class="hljs-keyword">else</span>:
+                <span class="hljs-keyword">raise</span> ValueError(<span class="hljs-string">f"Неизвестный тип весов: <span class="hljs-subst">{weight_type}</span>"</span>)
+            
+            classes[class_label] += weight
+        
+        <span class="hljs-comment"># Выбираем класс с наибольшим суммарным весом</span>
+        answers.append(max(classes, key=classes.get))
+    
+    <span class="hljs-keyword">return</span> answers
+
+<span class="hljs-comment"># Функция для оценки точности</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">accuracy</span><span class="hljs-params">(pred, y)</span>:</span>
+    <span class="hljs-keyword">return</span> sum(pred == y) / len(y)
+
+<span class="hljs-comment"># Тестирование с разными типами весов</span>
+k = <span class="hljs-number">5</span>
+weight_types = [<span class="hljs-string">'uniform'</span>, <span class="hljs-string">'inverse'</span>, <span class="hljs-string">'inverse_square'</span>, <span class="hljs-string">'gaussian'</span>]
+
+print(<span class="hljs-string">"Сравнение разных весовых функций при k ="</span>, k)
+print(<span class="hljs-string">"-"</span> * <span class="hljs-number">50</span>)
+
+<span class="hljs-keyword">for</span> weight_type <span class="hljs-keyword">in</span> weight_types:
+    y_pred = knn_weighted(X_train, y_train, X_test, k, weight_type)
+    acc = accuracy(y_pred, y_test)
+    print(<span class="hljs-string">f"Тип весов: <span class="hljs-subst">{weight_type:<span class="hljs-number">15</span>}</span> Точность: <span class="hljs-subst">{acc:<span class="hljs-number">.4</span>f}</span>"</span>)
+
+<span class="hljs-comment"># Визуализация с весами</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_graph_weighted</span><span class="hljs-params">(X_train, y_train, k, weight_type=<span class="hljs-string">'inverse'</span>)</span>:</span>
+    cmap_light = ListedColormap([<span class="hljs-string">'#FFAAAA'</span>, <span class="hljs-string">'#AAFFAA'</span>, <span class="hljs-string">'#00AAFF'</span>])
+    cmap = ListedColormap([<span class="hljs-string">'#FF0000'</span>, <span class="hljs-string">'#00FF00'</span>, <span class="hljs-string">'#0000FF'</span>])
+    
+    h = <span class="hljs-number">.1</span>
+    x_min, x_max = X_train[:, <span class="hljs-number">0</span>].min() - <span class="hljs-number">1</span>, X_train[:, <span class="hljs-number">0</span>].max() + <span class="hljs-number">1</span>
+    y_min, y_max = X_train[:, <span class="hljs-number">1</span>].min() - <span class="hljs-number">1</span>, X_train[:, <span class="hljs-number">1</span>].max() + <span class="hljs-number">1</span>
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, h), np.arange(y_min, y_max, h))
+    
+    <span class="hljs-comment"># Используем взвешенный kNN для предсказаний</span>
+    Z = knn_weighted(X_train, y_train, np.c_[xx.ravel(), yy.ravel()], k, weight_type)
+    
+    <span class="hljs-comment"># Построение графика</span>
+    Z = np.array(Z).reshape(xx.shape)
+    plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">8</span>))
+    plt.pcolormesh(xx, yy, Z, cmap=cmap_light, alpha=<span class="hljs-number">0.8</span>)
+    
+    <span class="hljs-comment"># Добавление обучающей выборки</span>
+    plt.scatter(X_train[:, <span class="hljs-number">0</span>], X_train[:, <span class="hljs-number">1</span>], c=y_train, cmap=cmap, edgecolor=<span class="hljs-string">'black'</span>, s=<span class="hljs-number">50</span>)
+    plt.xlim(xx.min(), xx.max())
+    plt.ylim(yy.min(), yy.max())
+    plt.title(<span class="hljs-string">f"Взвешенный kNN (k=<span class="hljs-subst">{k}</span>, веса=<span class="hljs-subst">{weight_type}</span>)"</span>)
+    plt.xlabel(<span class="hljs-string">"Признак 1"</span>)
+    plt.ylabel(<span class="hljs-string">"Признак 2"</span>)
+    plt.show()
+
+<span class="hljs-comment"># Пример визуализации с обратными весами</span>
+get_graph_weighted(X_train, y_train, k=<span class="hljs-number">5</span>, weight_type=<span class="hljs-string">'inverse'</span>)
+
+<span class="hljs-comment"># Сравнение влияния весов на разных значениях k</span>
+print(<span class="hljs-string">"\nСравнение точности для разных k и типов весов:"</span>)
+print(<span class="hljs-string">"-"</span> * <span class="hljs-number">60</span>)
+
+k_values = [<span class="hljs-number">1</span>, <span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">7</span>, <span class="hljs-number">9</span>]
+weight_types = [<span class="hljs-string">'uniform'</span>, <span class="hljs-string">'inverse'</span>, <span class="hljs-string">'inverse_square'</span>]
+
+<span class="hljs-comment"># Таблица результатов</span>
+results = np.zeros((len(k_values), len(weight_types)))
+
+<span class="hljs-keyword">for</span> i, k <span class="hljs-keyword">in</span> enumerate(k_values):
+    <span class="hljs-keyword">for</span> j, weight_type <span class="hljs-keyword">in</span> enumerate(weight_types):
+        y_pred = knn_weighted(X_train, y_train, X_test, k, weight_type)
+        results[i, j] = accuracy(y_pred, y_test)
+
+<span class="hljs-comment"># Вывод результатов</span>
+print(<span class="hljs-string">"\nk\tUniform\t\tInverse\t\tInverse_square"</span>)
+print(<span class="hljs-string">"-"</span> * <span class="hljs-number">50</span>)
+<span class="hljs-keyword">for</span> i, k <span class="hljs-keyword">in</span> enumerate(k_values):
+    print(<span class="hljs-string">f"<span class="hljs-subst">{k}</span>\t<span class="hljs-subst">{results[i, <span class="hljs-number">0</span>]:<span class="hljs-number">.4</span>f}</span>\t\t<span class="hljs-subst">{results[i, <span class="hljs-number">1</span>]:<span class="hljs-number">.4</span>f}</span>\t\t<span class="hljs-subst">{results[i, <span class="hljs-number">2</span>]:<span class="hljs-number">.4</span>f}</span>"</span>)
+
+<span class="hljs-comment"># Визуализация результатов</span>
+plt.figure(figsize=(<span class="hljs-number">10</span>, <span class="hljs-number">6</span>))
+<span class="hljs-keyword">for</span> j, weight_type <span class="hljs-keyword">in</span> enumerate(weight_types):
+    plt.plot(k_values, results[:, j], marker=<span class="hljs-string">'o'</span>, label=weight_type, linewidth=<span class="hljs-number">2</span>)
+
+plt.xlabel(<span class="hljs-string">'Количество соседей (k)'</span>)
+plt.ylabel(<span class="hljs-string">'Точность'</span>)
+plt.title(<span class="hljs-string">'Влияние весовой функции на точность kNN'</span>)
+plt.legend()
+plt.grid(<span class="hljs-literal">True</span>, alpha=<span class="hljs-number">0.3</span>)
+plt.show()
+</div></code></pre>
+<p><img src="file:///d:/PycharmProjects/main/Machine-learning-labs/lab_7/image/image20251205063731.png" alt="Влияние весов функции на точность">{#fig:01 width=70%}</p>
+<p><img src="file:///d:/PycharmProjects/main/Machine-learning-labs/lab_7/image/image20251205063738.png" alt="Визуализация результатов кластеризации k-means">{#fig:01 width=70%}</p>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-2">**Задание 2:</h3>
+<p>Написать функцию подсчета метрики качества кластеризации как среднее квадратичное внутрикластерное расстояние и построить график ее зависимости от количества кластеров k (взять от 1 до 10) для выборки данных из данной лабораторной.</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение</h3>
+<p>В алгоритме k-means <strong>качество кластеризации</strong> измеряется тем, насколько компактно точки сгруппированы вокруг своих центроидов. Среднее квадратичное внутрикластерное расстояние — это метрика, которая показывает, насколько хорошо точки внутри каждого кластера сгруппированы вокруг своего центра.</p>
+<h2 id="%D1%8F-%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%B8%D0%BB-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D1%8E-calculatewithinclustersse"><strong>Я добавил функцию <code>calculate_within_cluster_sse</code>:</strong></h2>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">calculate_within_cluster_sse</span><span class="hljs-params">(data, clusters, centroids)</span>:</span>
+    <span class="hljs-string">"""
+    Вычисляет среднее квадратичное внутрикластерное расстояние (within-cluster SSE)
+    """</span>
+    total_sse = <span class="hljs-number">0.0</span>
+    total_points = <span class="hljs-number">0</span>
+    
+    <span class="hljs-keyword">for</span> cluster_id <span class="hljs-keyword">in</span> clusters:
+        <span class="hljs-keyword">if</span> clusters[cluster_id]:
+            points = np.array(clusters[cluster_id])
+            centroid = centroids[cluster_id]
+            
+            <span class="hljs-comment"># Вычисляем сумму квадратов расстояний от точек до центроида кластера</span>
+            distances_squared = np.sum((points - centroid) ** <span class="hljs-number">2</span>)
+            total_sse += distances_squared
+            total_points += len(points)
+    
+    <span class="hljs-comment"># Среднее квадратичное расстояние (нормируем на количество точек)</span>
+    <span class="hljs-keyword">if</span> total_points &gt; <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> total_sse / total_points
+    <span class="hljs-keyword">else</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0.0</span>
+</div></code></pre>
+<p><strong>Для каждого кластера вычисляем сумму квадратов расстояний:</strong></p>
+<pre class="hljs"><code><div>distances_squared = np.sum((points - centroid) ** <span class="hljs-number">2</span>)
+</div></code></pre>
+<p>Это сумма квадратов расстояний от каждой точки кластера до его центроида.</p>
+<p><strong>Суммируем по всем кластерам:</strong></p>
+<pre class="hljs"><code><div>total_sse += distances_squared
+total_points += len(points)
+</div></code></pre>
+<p>Складываем суммы квадратов расстояний для всех кластеров и считаем общее количество точек.</p>
+<p><strong>Вычисляем среднее значение:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">return</span> total_sse / total_points
+</div></code></pre>
+<p>Делим общую сумму квадратов расстояний на количество точек, чтобы получить среднее значение.</p>
+<p><strong>Что показывает эта метрика:</strong></p>
+<ol>
+<li><strong>Малое значение</strong>: точки расположены близко к центроидам (хорошая кластеризация)</li>
+<li><strong>Большое значение</strong>: точки разбросаны далеко от центроидов (плохая кластеризация)</li>
+<li><strong>При увеличении k</strong>: метрика уменьшается (больше кластеров → более компактные группы)</li>
+</ol>
+<h3 id="%D0%B7%D0%B0%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5-3">**Задание 3:</h3>
+<p>Оптимизировать код для KNN (оставить один цикл, либо обойтись без циклов вообще).</p>
+<h3 id="%D1%80%D0%B5%D1%88%D0%B5%D0%BD%D0%B8%D0%B5">Решение</h3>
+<p><strong>Было (старая версия с циклами):</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">knn</span><span class="hljs-params">(x_train, y_train, x_test, k)</span>:</span>
+    answers = []
+    <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> x_test:  <span class="hljs-comment"># ЦИКЛ 1: по всем тестовым точкам</span>
+        test_distances = []
+        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(len(x_train)):  <span class="hljs-comment"># ЦИКЛ 2: по всем обучающим точкам</span>
+            distance = e_metrics(x, x_train[i])  <span class="hljs-comment"># Считаем расстояние</span>
+            test_distances.append((distance, y_train[i]))
+        <span class="hljs-comment"># ... обработка k ближайших соседей</span>
+</div></code></pre>
+<p><strong>Стало (оптимизированная версия):</strong></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">knn_vectorized</span><span class="hljs-params">(x_train, y_train, x_test, k)</span>:</span>
+    <span class="hljs-comment"># 1. ВЫЧИСЛЯЕМ ВСЕ РАССТОЯНИЯ ОДНОЙ ОПЕРАЦИЕЙ</span>
+    x_train_norm = np.sum(x_train**<span class="hljs-number">2</span>, axis=<span class="hljs-number">1</span>)  <span class="hljs-comment"># ||x_train||²</span>
+    x_test_norm = np.sum(x_test**<span class="hljs-number">2</span>, axis=<span class="hljs-number">1</span>)    <span class="hljs-comment"># ||x_test||²</span>
+    
+    <span class="hljs-comment"># Магическая формула вместо циклов:</span>
+    distances = np.sqrt(
+        x_test_norm[:, np.newaxis] +  <span class="hljs-comment"># Делаем размер (n_test, 1)</span>
+        x_train_norm[np.newaxis, :] - <span class="hljs-comment"># Делаем размер (1, n_train)</span>
+        <span class="hljs-number">2</span> * np.dot(x_test, x_train.T) <span class="hljs-comment"># Умножаем матрицы</span>
+    )
+    <span class="hljs-comment"># Получаем матрицу размера (n_test, n_train) за одну операцию!</span>
+</div></code></pre>
+<p>**Было: сортировка всех расстояний</p>
+<pre class="hljs"><code><div>neighbors = sorted(test_distances)[<span class="hljs-number">0</span>:k] 
+</div></code></pre>
+<p>Стало: находим только k наименьших</p>
+<pre class="hljs"><code><div>k_nearest_indices = np.argpartition(distances, k, axis=1)[:, :k]
+</div></code></pre>
+<p>argpartition быстрее, так как не сортирует все элементы</p>
+
+</body>
+</html>
